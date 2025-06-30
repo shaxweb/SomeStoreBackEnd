@@ -1,0 +1,7 @@
+gunicorn
+psycopg2-binary
+python-decouple
+dj-database-url
+whitenoise
+Pillow  
+djangorestframework
