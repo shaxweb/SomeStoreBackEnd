@@ -24,6 +24,28 @@ class StartAPi(APIView):
         return Response({"status": True, "message": "Hello, World"})
 
 
+class GetDataApi(APIView):
+    def get(self, request):
+        data = request.GET
+        print(data)
+        user_id, product_id, basket_id = data.get("user_id"), data.get("product_id"), data.get("basket_id")
+        result = []
+        if data.get("user_id"):
+            user = User.objects.filter(id=user_id).first()
+            user_ser = UserSerializer(user)
+            result.append({"user": user_ser.data} if user else None)
+        if product_id:
+            product = Product.objects.filter(id=product_id).first()
+            product_ser = ProductSerializer(product)
+            result.append({"product": product_ser.data} if product else None)
+        if basket_id:
+            basket = Basket.objects.filter(id=basket_id).first()
+            basket_ser = BasketSerializer(basket)
+            result.append({"basket": basket_ser.data} if basket else None)
+
+        return Response({"status": True, "result": result})
+
+
 class GetAllDatasApi(APIView):
     def get(self, request):
         users = User.objects.all()
@@ -145,24 +167,3 @@ class CreateBasketApi(APIView):
 
         return Response({"statis": False, "error": "uncorrect datas"})
 
-
-class GetDataApi(APIView):
-    def get(self, request):
-        data = request.GET
-        print(data)
-        user_id, product_id, basket_id = data.get("user_id"), data.get("product_id"), data.get("basket_id")
-        result = []
-        if data.get("user_id"):
-            user = User.objects.filter(id=user_id).first()
-            user_ser = UserSerializer(user)
-            result.append({"user": user_ser.data} if user else None)
-        if product_id:
-            product = Product.objects.filter(id=product_id).first()
-            product_ser = ProductSerializer(product)
-            result.append({"product": product_ser.data} if product else None)
-        if basket_id:
-            basket = Basket.objects.filter(id=basket_id).first()
-            basket_ser = BasketSerializer(basket)
-            result.append({"basket": basket_ser.data} if basket else None)
-
-        return Response({"status": True, "result": result})
