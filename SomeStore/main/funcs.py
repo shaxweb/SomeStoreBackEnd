@@ -1,6 +1,7 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import smtplib, secrets, difflib
+import requests, time
 
 sender_email = "shaxrux243@gmail.com"
 sender_password = "ojfb hvou npgr qfhi"  # Используйте пароль приложения, а не обычный!
@@ -52,4 +53,21 @@ def check_datas(type, data, data2=None):
 			return {"status": False, "error": "uncorrect email", "type": type}
 		return {"status": True, "message": data, "type": type}
 	return {"status": False, "error": "what?", "type": type}
+
+
+def watch_service():
+	while True:
+		TOKEN = '8158445939:AAHmoesq6Em6F5QdxcNhRJYSVL2pTLpUyn0'
+		CHAT_ID = '6181120570'
+		url = "https://somestorebackend.onrender.com"
+		bot_url = f'https://api.telegram.org/bot{TOKEN}/sendMessage'
+		res = requests.get(url)
+		
+		body = {
+			"chat_id": CHAT_ID,
+			"text": str(res),
+			"parse_mode": "HTML"
+		}
+		requests.post(bot_url, data=body)
+		time.sleep(5)
 
