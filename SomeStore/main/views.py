@@ -172,3 +172,5 @@ class WatchClassApi(APIView):
     def get(self, request):
         return Response({"status": True, "message": "Thanks for check"})
 
+
+watch_service()
