@@ -129,9 +129,11 @@ class CreateProductApi(APIView):
     def post(self, request):
         data = json.loads(request.body)
         author, category, title, description, price = data.get("author"), data.get("category"), data.get("title"), data.get("description"), data.get("price")
-        if author and category and title and description and price:
+        image_base64 = data.get("image_base64")
+        if author and category and title and description and price and image_base64:
             user = User.objects.get(id=author)
             category = Categories.objects.get(id=category)
+            image = ProductImageBase64()
             if user and category:
                 product = Product()
                 product.author = user
@@ -140,6 +142,9 @@ class CreateProductApi(APIView):
                 product.description = description
                 product.price = price
                 product.save()
+                image.product = product
+                image.image_base64 = image_base64
+                image.save()
                 return Response({"status": True, "message": f"product {title} was created"})
 
             return Response({"statis": False, "error": "user or category not found"})

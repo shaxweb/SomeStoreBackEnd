@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+# cd SomeStore && python manage.py makemigrations && python manage.py migrate && gunicorn SomeStore.wsgi:application --workers 4 --threads 2 --bind 0.0.0.0:$PORT
+
 from pathlib import Path
 import os
 

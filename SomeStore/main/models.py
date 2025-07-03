@@ -30,6 +30,11 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
+class ProductImageBase64(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    image_base64 = models.TextField()
+
+
 class Basket(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
