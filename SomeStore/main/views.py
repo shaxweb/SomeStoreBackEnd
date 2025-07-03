@@ -173,4 +173,3 @@ class WatchClassApi(APIView):
         return Response({"status": True, "message": "Thanks for check"})
 
 
-watch_service()
