@@ -83,6 +83,9 @@ class RegisterUserApi(APIView):
             check_email = check_datas("email", email)
             if not check_email["status"]:
             	return Response({"status": False, "error": check_email["error"], "type": "email"})
+            check_password = check_datas("password", password)
+            if not check_password["status"]:
+                return Response({"status": False, "error", check_password["error"]})
 
             user = WaitUser()
             token = send_token_to_email(email)
