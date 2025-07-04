@@ -133,7 +133,7 @@ class LoginUserApi(APIView):
         data = json.loads(request.body)
         username, password = data.get("username"), data.get("password")
         if username and password:
-            user = User.objects.filter(username).first()
+            user = User.objects.filter(username=username).first()
             if user:
                 if password == user.password:
                     user_agent = request.META.get("HTTP_USER_AGENT", "")
