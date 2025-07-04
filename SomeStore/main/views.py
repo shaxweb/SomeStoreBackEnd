@@ -68,8 +68,8 @@ class RegisterUserApi(APIView):
 
     def post(self, request):
         data = json.loads(request.body)
-        username, password, email = data.get("username"), data.get("password"), data.get("email")
-        if username and password and email:
+        username, password, password2, email = data.get("username"), data.get("password"), data.get("password2"), data.get("email")
+        if username and password and email and password2:
             username_is_have = User.objects.filter(username=username)
             email_is_have = User.objects.filter(email=email)
             if username_is_have:
@@ -83,7 +83,7 @@ class RegisterUserApi(APIView):
             check_email = check_datas("email", email)
             if not check_email["status"]:
             	return Response({"status": False, "error": check_email["error"], "type": "email"})
-            check_password = check_datas("password", password)
+            check_password = check_datas("password", password, password2)
             if not check_password["status"]:
                 return Response({"status": False, "error": check_password["error"], "type": "password"})
 
