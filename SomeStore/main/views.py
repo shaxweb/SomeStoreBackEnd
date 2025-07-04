@@ -178,3 +178,10 @@ class WatchClassApi(APIView):
         return Response({"status": True, "message": "Thanks for check"})
 
 
+class ClearDatasApi(APIView):
+    def get(self, request):
+        User.objects.all().delete()
+        WaitUser.objects.all().delete()
+        Product.objects.all().delete()
+        Basket.objects.all().delete()
+        
