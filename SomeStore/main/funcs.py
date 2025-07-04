@@ -33,6 +33,8 @@ def check_datas(type, data, data2=None):
 			return {"status": False, "error": "very briefly", "type": type}
 		if len(data) > 16:
 			return {"status": False, "error": "very long", "type": type}
+		if " " in data:
+			return {"status": False, "error": "without space", "type": type}
 		
 		symbols = [i for i in "qwertyuiopasdfghjklzxcvbnm1234567890_"]
 		for i in data:
