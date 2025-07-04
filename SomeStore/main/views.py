@@ -21,8 +21,7 @@ from .funcs import *
 
 class StartAPi(APIView):
     def get(self, request):
-        data = request
-        
+        data = "meta"
         return Response({"status": True, "message": "Hello, World", "data": data})
 
 
