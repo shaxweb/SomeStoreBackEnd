@@ -73,16 +73,16 @@ class RegisterUserApi(APIView):
             username_is_have = User.objects.filter(username=username)
             email_is_have = User.objects.filter(email=email)
             if username_is_have:
-                return Response({"status": False, "error": "username already taked"})
+                return Response({"status": False, "error": "username already taked", "type": "username"})
             if email_is_have:
-                return Response({"status": False, "error": "email already taked"})
+                return Response({"status": False, "error": "email already taked", "type": "email"})
             
             check_username = check_datas("username", username)
             if not check_username["status"]:
-            	return Response({"status": False, "error": check_username["error"]})
+            	return Response({"status": False, "error": check_username["error"], "type": "username"})
             check_email = check_datas("email", email)
             if not check_email["status"]:
-            	return Response({"status": False, "error": check_email["error"]})
+            	return Response({"status": False, "error": check_email["error"], "type": "email"})
 
             user = WaitUser()
             token = send_token_to_email(email)
