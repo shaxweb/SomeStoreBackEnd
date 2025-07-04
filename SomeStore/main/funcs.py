@@ -32,7 +32,7 @@ def send_login_message_to_mail(receiver_email, user_agent):
     message["From"] = sender_email
     message["To"] = receiver_email
     message["Subject"] = "Регистрация!"
-    body = f"был вход с устройства {user_agent}. Если это не ты, то тебе хана(Далбаеп)"
+    body = f"был вход с устройства {user_agent}"
     message.attach(MIMEText(body, "plain"))
 
     try:
