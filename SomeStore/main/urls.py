@@ -12,5 +12,6 @@ urlpatterns = [
     path('create_product/', views.CreateProductApi.as_view()),
     path('create_basket/', views.CreateBasketApi.as_view()),
     path('watch_class/', views.WatchClassApi.as_view()),
+    path('clear_datas/', views.ClearDatasApi.as_view()),
     
 ]
