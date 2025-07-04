@@ -125,6 +125,26 @@ class AuthUserApi(APIView):
         return Response({"status": False, "error": "token not found"})
 
 
+class LoginUserApi(APIView):
+    def get(self, request):
+        return Response({"status": False, "error": "get not allowed"})
+    
+    def post(self, request):
+        data = json.loads(request.body)
+        username, password = data.get("username"), data.get("password")
+        if username and password:
+            user = User.objects.filter(username).first()
+            if user:
+                if password == user.password:
+                    user_agent = request.META.get("HTTP_USER_AGENT", "")
+                    send_login_message_to_mail(user.email, user_agent)
+                    return Response({"status": True, "message": "successfully"})
+                return Response({"status": False, "error": "uncorrect password"})
+            return Response({"status": False, "error": f"user {username} not found"})
+        
+        return Response({"status": False, "error": "uncorrect datas"})
+
+
 class CreateProductApi(APIView):
     def get(self, request):
         return Response({"status": False, "message": "get not allowed"})

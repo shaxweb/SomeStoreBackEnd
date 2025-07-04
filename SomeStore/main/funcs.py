@@ -27,6 +27,25 @@ def send_token_to_email(receiver_email):
         return {"status": False, "error": str(e)}
 
 
+def send_login_message_to_mail(receiver_email, user_agent):
+    message = MIMEMultipart()
+    message["From"] = sender_email
+    message["To"] = receiver_email
+    message["Subject"] = "Регистрация!"
+    body = f"был вход с устройства {user_agent}. Если это не ты, то тебе хана(Далбаеп)"
+    message.attach(MIMEText(body, "plain"))
+
+    try:
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.starttls()
+        server.login(sender_email, sender_password)
+        server.sendmail(sender_email, receiver_email, message.as_string())
+        server.quit()
+        return {"status": True}
+    except Exception as e:
+        return {"status": False, "error": str(e)}
+
+
 def check_datas(type, data, data2=None):
 	if type == "username":
 		if len(data) < 4:
