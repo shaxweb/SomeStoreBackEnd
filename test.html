@@ -1,8 +1,19 @@
 <script>
 
-const url = "https://somestorebackend.onrender.com/get_products/"
+const url = "https://somestorebackend.onrender.com/create_product/"
 
-fetch(url)
+fetch(url, {
+  method: "POST",
+  headers: {"Content-Type": "application/json"},
+  body: JSON.stringify({
+    author: 1,
+    category: 1,
+    title: "iPhone",
+    description: "Apple smartphone",
+    price: 1499,
+    image_base64: "none"
+  })
+})
 .then(res => res.json())
 .then(data => {
   console.log(data)
