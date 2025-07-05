@@ -138,8 +138,9 @@ class LoginUserApi(APIView):
             if user:
                 if password == user.password:
                     user_agent = request.META.get("HTTP_USER_AGENT", "")
+                    user_ser = UserSerializer(user)
                     send_login_message_to_mail(user.email, user_agent)
-                    return Response({"status": True, "message": "successfully"})
+                    return Response({"status": True, "message": "successfully", "data": user_ser})
                 return Response({"status": False, "error": "uncorrect password"})
             return Response({"status": False, "error": f"user {username} not found"})
         
