@@ -132,7 +132,7 @@ class LoginUserApi(APIView):
     
     def post(self, request):
         data = json.loads(request.body)
-        username, password = data.get("username"), data.get("password")
+        username, password = data.get("username"), data.get("password") 
         if username and password:
             user = User.objects.filter(username=username).first()
             if user:
