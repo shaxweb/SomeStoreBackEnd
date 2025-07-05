@@ -63,6 +63,13 @@ class GetAllDatasApi(APIView):
         return Response({"status": True, "all": {"users": len(users.data), "wait_users": len(wait_users.data), "products": len(products.data), "baskets": len(baskets.data)}, "users": users.data, "wait_users": wait_users.data, "products": products.data, "categories": categories.data, "baskets": baskets.data})
 
 
+class GetProductsApi(APIView):
+    def get(self, request):
+        products = Product.objects.all()
+        products = ProductSerializer(products, many=True)
+        return Response({"status": True, "message": "in data", "data": products.data})
+
+
 class RegisterUserApi(APIView):
     def get(self, request):
         return Response({"status": False, "error": "get not allowed"})
