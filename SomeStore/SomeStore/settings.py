@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ['somestorebackend.onrender.com']
 ALLOWED_SLASH = True
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS = ["https://somestorebackend.onrender.com"]
+CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000"]
 
 
 # Application definition
