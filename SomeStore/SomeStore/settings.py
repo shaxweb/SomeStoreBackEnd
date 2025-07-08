@@ -30,11 +30,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['somestorebackend.onrender.com']
 ALLOWED_SLASH = True
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost", "https://localhost"]
-CORS_ALLOW_METHODS = ["GET", "POST", "OPTIONS"]
-CORS_ALLOW_HEADERS = ["content-type", "authorization", "x-requested-with"]
-CORS_ALLOWED_HOSTS = ["localhost", "somaestorebackend"]
+#CORS_ORIGIN_ALLOW_ALL = True
+#CORS_ALLOWED_ORIGINS = ["http://127.0.0.1:3000", "http://localhost", "https://localhost"]
+#CORS_ALLOW_METHODS = ["GET", "POST", "OPTIONS"]
+#CORS_ALLOW_HEADERS = ["content-type", "authorization", "x-requested-with"]
+#CORS_ALLOWED_HOSTS = ["localhost", "somaestorebackend"]
 # new
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = False
