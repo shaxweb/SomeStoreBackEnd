@@ -30,9 +30,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 
-class ProductImageBase64(models.Model):
+class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image_base64 = models.TextField()
+    image = models.ImageField(upload_to="product_images/")
 
 
 class Basket(models.Model):

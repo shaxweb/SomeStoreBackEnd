@@ -161,10 +161,10 @@ class CreateProductApi(APIView):
     def post(self, request):
         data = json.loads(request.body)
         author, category, title, description, price = data.get("author"), data.get("category"), data.get("title"), data.get("description"), data.get("price")
-        if author and category and title and description and price:
+        images = request.FILES.getlist("images")    
+        if author and category and title and description and price and images:
             user = User.objects.get(id=author)
             category = Categories.objects.get(id=category)
-            image = ProductImageBase64()
             if user and category:
                 product = Product()
                 product.author = user
@@ -173,6 +173,8 @@ class CreateProductApi(APIView):
                 product.description = description
                 product.price = price
                 product.save()
+                for image in images:
+                    ProductImage.objects.create(product=product, image=image)
                 return Response({"status": True, "message": f"product {title} was created"})
 
             return Response({"statis": False, "error": "user or category not found"})
@@ -190,7 +192,7 @@ class CreateBasketApi(APIView):
         product = data.get("product")
         user = User.objects.get(id=author)
         product = Product.objects.get(id=product)
-
+        
         if author and product:
             basket = Basket()
             basket.author = user
