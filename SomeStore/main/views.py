@@ -205,8 +205,8 @@ class CreateProductApi(APIView):
                     return Response({"status": True, "message": f"product {title} was created"})
                 if tg_images:
                     for image in tg_images:
-                        file_path = get_tg_file_path(image)
-                        TgProductImage.objects.create(product=product, image_id=file_path)
+                        # file_path = get_tg_file_path(image)
+                        TgProductImage.objects.create(product=product, image_id=image)
                     return Response({"status": True, "message": f"product {title} was created"})
                 return Response({"status": False, "error": "uncorrect datas"})
 
