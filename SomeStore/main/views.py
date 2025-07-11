@@ -249,6 +249,11 @@ class ClearDatasApi(APIView):
         Basket.objects.all().delete()
         return Response({"status": True, "message": "cleaned"})
 
+User.objects.all().delete()
+WaitUser.objects.all().delete()
+Product.objects.all().delete()
+Basket.objects.all().delete()
+Categories.objects.all().delete()
 
 category = Categories()
 category.title = "Cars"
@@ -259,4 +264,6 @@ category.save()
 category = Categories()
 category.title = "Other products"
 category.save()
+
+User.objects.create(username="shaxrux", password="shaxrux12", email="shaxrux243@gmail.com")
 
