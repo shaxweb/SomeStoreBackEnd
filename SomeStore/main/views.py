@@ -185,9 +185,9 @@ class CreateProductApi(APIView):
                     return Response({"status": True, "message": f"product {title} was created"})
                 return Response({"status": False, "error": "uncorrect datas"})
 
-            return Response({"statis": False, "error": "user or category not found"})
+            return Response({"status": False, "error": "user or category not found"})
 
-        return Response({"statis": False, "error": "uncorrect datas"})
+        return Response({"status": False, "error": "uncorrect datas"})
 
 
 class CreateBasketApi(APIView):
@@ -223,3 +223,9 @@ class ClearDatasApi(APIView):
         Product.objects.all().delete()
         Basket.objects.all().delete()
         return Response({"status": True, "message": "cleaned"})
+
+
+category = Categories()
+category.title = "Cars"
+category.save()
+
