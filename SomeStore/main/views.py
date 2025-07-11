@@ -67,6 +67,9 @@ class GetProductsApi(APIView):
     def get(self, request):
         products = Product.objects.all()
         products = ProductSerializer(products, many=True)
+        for product in products:
+            images = TgProductImage.objects.filter(product=product)
+            products["images"] = images
         return Response({"status": True, "message": "in data", "data": products.data})
 
 
@@ -227,5 +230,11 @@ class ClearDatasApi(APIView):
 
 category = Categories()
 category.title = "Cars"
+category.save()
+category = Categories()
+category.title = "Houses"
+category.save()
+category = Categories()
+category.title = "Other products"
 category.save()
 
