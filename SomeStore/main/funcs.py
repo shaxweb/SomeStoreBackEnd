@@ -93,3 +93,10 @@ def watch_service():
 		time.sleep(5)
 
 
+def get_tg_file_path(file_id):
+	token = "8158445939:AAHmoesq6Em6F5QdxcNhRJYSVL2pTLpUyn0"
+	
+	get_file_url = f"https://api.telegram.org/bot{token}/getFile?file_id={file_id}"
+	res = requests.get(get_file_url)
+	file_path = res.json()["result"]["file_path"]
+	return file_path
