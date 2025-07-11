@@ -164,8 +164,8 @@ class CreateProductApi(APIView):
         images = request.FILES.getlist("images") 
         tg_images = data.get("tg_images")
         if author and category and title and description and price:
-            user = User.objects.get(id=author)
-            category = Categories.objects.get(id=category)
+            user = User.objects.filter(id=author).first()
+            category = Categories.objects.filter(id=category).first()
             if user and category:
                 product = Product()
                 product.author = user
