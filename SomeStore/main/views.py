@@ -18,6 +18,8 @@ from .serializers import *
 from .models import *
 from .funcs import *
 
+bot_token = "8158445939:AAHmoesq6Em6F5QdxcNhRJYSVL2pTLpUyn0"
+
 
 class StartAPi(APIView):
     def get(self, request):
@@ -66,7 +68,30 @@ class GetAllDatasApi(APIView):
 class GetProductsApi(APIView):
     def get(self, request):
         products = Product.objects.all()
-        products = ProductSerializer(products, many=True)
+        response_data = []
+        # products = ProductSerializer(products, many=True)
+        for product in products:
+            serialized_product = ProductSerializer(product)
+            serialized_product.images = []
+            images = TgProductImage.filter(product=product)
+            
+            for img in images:
+                file_id = img.image_id
+                file_info = requests.get(f"https://api.telegram.org/bot{bot_token}/getFile?file_id={file_id}")
+                
+                if file_info.status_code == 200:
+                    file_path = file_info.json()["result"]["file_path"]
+                    image_download_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
+                    image_response = requests.get(image_download_url)
+                    
+                    if image_response.status == 200:
+                        serialized_product["images"].append(image_response.content)
+                    else:
+                        serialized_product["images"].append(None)
+                else:
+                    serialized_product["images"].append(None)
+            
+            response_data.append(serialized_product)
         return Response({"status": True, "message": "in data", "data": products.data})
 
 
