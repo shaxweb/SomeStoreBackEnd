@@ -14,6 +14,12 @@ class WaitUserSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TgProductImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TgProductImage
+        fields = "__all__"
+
+
 class ProductSerializer(serializers.ModelSerializer):
     images = TgProductImageSerializer(source='tgproductimage_set', many=True)
     class Meta:
