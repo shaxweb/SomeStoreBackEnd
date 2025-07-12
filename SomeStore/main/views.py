@@ -92,7 +92,7 @@ class GetProductsApi(APIView):
                     serialized_product["images"].append(None)
 
             response_data.append(serialized_product)
-        return Response({"status": True, "message": "in data", "data": products.data})
+        return Response({"status": True, "message": "in data", "data": response_data})
 
 
 class RegisterUserApi(APIView):
