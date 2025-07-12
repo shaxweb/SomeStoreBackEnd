@@ -255,3 +255,7 @@ class CreateUserApi(APIView):
         User.objects.create(username="shaxrux", password="shaxcoder", email="shaxrux243@gmail.com")
         return Response({"status": True, "message": "User Created"})
 
+
+Categories.objects.create(title="Cars")
+Categories.objects.create(title="Houses")
+Categories.objects.create(title="Other")
