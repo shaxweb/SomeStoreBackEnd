@@ -236,8 +236,6 @@ class CreateBasketApi(APIView):
         return Response({"statis": False, "error": "uncorrect datas"})
 
 
-
-
 class WatchClassApi(APIView):
     def get(self, request):
         return Response({"status": True, "message": "Thanks for check"})
@@ -250,4 +248,10 @@ class ClearDatasApi(APIView):
         Product.objects.all().delete()
         Basket.objects.all().delete()
         return Response({"status": True, "message": "cleaned"})
+
+
+class CreateUserApi(APIView):
+    def get(self, request):
+        User.objects.create(username="shaxrux", password="shaxcoder", email="shaxrux243@gmail.com")
+        return Response({"status": True, "message": "User Created"})
 
