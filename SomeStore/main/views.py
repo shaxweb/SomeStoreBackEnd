@@ -84,7 +84,7 @@ class GetProductsApi(APIView):
                     image_download_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
                     image_response = requests.get(image_download_url)
 
-                    if image_response.status == 200:
+                    if image_response.status_code == 200:
                         serialized_product["images"].append(image_response.content)
                     else:
                         serialized_product["images"].append(None)
