@@ -73,24 +73,24 @@ class GetProductsApi(APIView):
         for product in products:
             serialized_product = ProductSerializer(product)
             serialized_product.images = []
-            images = TgProductImage.filter(product=product)
-            
+            images = TgProductImage.objects.filter(product=product)
+
             for img in images:
                 file_id = img.image_id
                 file_info = requests.get(f"https://api.telegram.org/bot{bot_token}/getFile?file_id={file_id}")
-                
+
                 if file_info.status_code == 200:
                     file_path = file_info.json()["result"]["file_path"]
                     image_download_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
                     image_response = requests.get(image_download_url)
-                    
+
                     if image_response.status == 200:
                         serialized_product["images"].append(image_response.content)
                     else:
                         serialized_product["images"].append(None)
                 else:
                     serialized_product["images"].append(None)
-            
+
             response_data.append(serialized_product)
         return Response({"status": True, "message": "in data", "data": products.data})
 
@@ -109,13 +109,13 @@ class RegisterUserApi(APIView):
                 return Response({"status": False, "error": "username already taked", "type": "username"})
             if email_is_have:
                 return Response({"status": False, "error": "email already taked", "type": "email"})
-            
+
             check_username = check_datas("username", username)
             if not check_username["status"]:
-            	return Response({"status": False, "error": check_username["error"], "type": "username"})
+                return Response({"status": False, "error": check_username["error"], "type": "username"})
             check_email = check_datas("email", email)
             if not check_email["status"]:
-            	return Response({"status": False, "error": check_email["error"], "type": "email"})
+                return Response({"status": False, "error": check_email["error"], "type": "email"})
             check_password = check_datas("password", password, password2)
             if not check_password["status"]:
                 return Response({"status": False, "error": check_password["error"], "type": "password"})
@@ -161,7 +161,7 @@ class AuthUserApi(APIView):
 class LoginUserApi(APIView):
     def get(self, request):
         return Response({"status": False, "error": "get not allowed"})
-    
+
     def post(self, request):
         data = json.loads(request.body)
         username, password = data.get("username"), data.get("password")
@@ -175,7 +175,7 @@ class LoginUserApi(APIView):
                     return Response({"status": True, "message": "successfully", "data": user_ser.data})
                 return Response({"status": False, "error": "uncorrect password", "type": "password"})
             return Response({"status": False, "error": f"user {username} not found", "type": "username"})
-        
+
         return Response({"status": False, "error": "uncorrect datas", "type": "all"})
 
 
@@ -186,7 +186,7 @@ class CreateProductApi(APIView):
     def post(self, request):
         data = json.loads(request.body)
         author, category, title, description, price = data.get("author"), data.get("category"), data.get("title"), data.get("description"), data.get("price")
-        images = request.FILES.getlist("images") 
+        images = request.FILES.getlist("images")
         tg_images = data.get("tg_images")
         if author and category and title and description and price:
             user = User.objects.filter(id=author).first()
@@ -225,7 +225,7 @@ class CreateBasketApi(APIView):
         product = data.get("product")
         user = User.objects.get(id=author)
         product = Product.objects.get(id=product)
-        
+
         if author and product:
             basket = Basket()
             basket.author = user
