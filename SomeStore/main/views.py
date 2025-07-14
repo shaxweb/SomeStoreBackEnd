@@ -67,7 +67,7 @@ class GetProductsApi(APIView):
     def get(self, request):
         products = Product.objects.all()
         products = ProductSerializer(products, many=True)
-        return Response({"status": True, "message": "in data", "data": products})
+        return Response({"status": True, "message": "in data", "data": products.data})
 
 
 class RegisterUserApi(APIView):
