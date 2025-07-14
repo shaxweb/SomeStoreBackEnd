@@ -18,8 +18,6 @@ from .serializers import *
 from .models import *
 from .funcs import *
 
-bot_token = "8158445939:AAHmoesq6Em6F5QdxcNhRJYSVL2pTLpUyn0"
-
 
 class StartAPi(APIView):
     def get(self, request):
@@ -68,31 +66,8 @@ class GetAllDatasApi(APIView):
 class GetProductsApi(APIView):
     def get(self, request):
         products = Product.objects.all()
-        response_data = []
-        # products = ProductSerializer(products, many=True)
-        for product in products:
-            serialized_product = ProductSerializer(product)
-            serialized_product.images = []
-            images = TgProductImage.objects.filter(product=product)
-
-            for img in images:
-                file_id = img.image_id
-                file_info = requests.get(f"https://api.telegram.org/bot{bot_token}/getFile?file_id={file_id}")
-
-                if file_info.status_code == 200:
-                    file_path = file_info.json()["result"]["file_path"]
-                    image_download_url = f"https://api.telegram.org/file/bot{bot_token}/{file_path}"
-                    image_response = requests.get(image_download_url)
-
-                    if image_response.status_code == 200:
-                        serialized_product["images"].append(image_response.content)
-                    else:
-                        serialized_product["images"].append(None)
-                else:
-                    serialized_product["images"].append(None)
-
-            response_data.append(serialized_product)
-        return Response({"status": True, "message": "in data", "data": response_data})
+        products = ProductSerializer(products, many=True)
+        return Response({"status": True, "message": "in data", "data": products})
 
 
 class RegisterUserApi(APIView):
@@ -187,8 +162,7 @@ class CreateProductApi(APIView):
         data = json.loads(request.body)
         author, category, title, description, price = data.get("author"), data.get("category"), data.get("title"), data.get("description"), data.get("price")
         images = request.FILES.getlist("images")
-        tg_images = data.get("tg_images")
-        if author and category and title and description and price:
+        if author and category and title and description and price and images:
             user = User.objects.filter(id=author).first()
             category = Categories.objects.filter(id=category).first()
             if user and category:
@@ -199,16 +173,10 @@ class CreateProductApi(APIView):
                 product.description = description
                 product.price = price
                 product.save()
-                if images:
-                    for image in images:
-                        ProductImage.objects.create(product=product, image=image)
-                    return Response({"status": True, "message": f"product {title} was created"})
-                if tg_images:
-                    for image in tg_images:
-                        # file_path = get_tg_file_path(image)
-                        TgProductImage.objects.create(product=product, image_id=image)
-                    return Response({"status": True, "message": f"product {title} was created"})
-                return Response({"status": False, "error": "uncorrect datas"})
+                for image in images:
+                    ProductImage.objects.create(product=product, image=image)
+                
+                return Response({"status": True, "message": f"product {title} was created"})
 
             return Response({"status": False, "error": "user or category not found"})
 
