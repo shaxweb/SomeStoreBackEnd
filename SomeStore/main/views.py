@@ -21,7 +21,7 @@ from .funcs import *
 
 class StartAPi(APIView):
     def get(self, request):
-        data = "meta"
+        data = "meta datas"
         return Response({"status": True, "message": "Hello, World", "data": data})
 
 
@@ -60,7 +60,7 @@ class GetAllDatasApi(APIView):
         categories = CategoriesSerializer(categories, many=True)
         baskets = BasketSerializer(baskets, many=True)
 
-        return Response({"status": True, "all": {"users": len(users.data), "wait_users": len(wait_users.data), "products": len(products.data), "baskets": len(baskets.data)}, "users": users.data, "wait_users": wait_users.data, "products": products.data, "categories": categories.data, "baskets": baskets.data})
+        return Response({"status": True, "all": {"users": len(users.data), "wait_users": len(wait_users.data), "products": len(products.data), "categories": len(categories.data), "baskets": len(baskets.data)}, "users": users.data, "wait_users": wait_users.data, "products": products.data, "categories": categories.data, "baskets": baskets.data})
 
 
 class GetProductsApi(APIView):

@@ -35,9 +35,9 @@ class ProductImage(models.Model):
     image = models.ImageField(upload_to="product_images/")
 
 
-class TgProductImage(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    image_id = models.TextField()
+# class TgProductImage(models.Model):
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+#     image_id = models.TextField()
 
 
 class Basket(models.Model):
