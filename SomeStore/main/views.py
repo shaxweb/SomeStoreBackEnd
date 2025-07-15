@@ -214,6 +214,7 @@ class ClearDatasApi(APIView):
         User.objects.all().delete()
         WaitUser.objects.all().delete()
         Product.objects.all().delete()
+        ProductImage.objects.all().delete()
         Basket.objects.all().delete()
         return Response({"status": True, "message": "cleaned"})
 
