@@ -159,7 +159,7 @@ class CreateProductApi(APIView):
         return Response({"status": False, "message": "get not allowed"})
 
     def post(self, request):
-        data = json.loads(request.body)
+        data = request.data
         author, category, title, description, price = data.get("author"), data.get("category"), data.get("title"), data.get("description"), data.get("price")
         images = request.FILES.getlist("images")
         if author and category and title and description and price and images:
