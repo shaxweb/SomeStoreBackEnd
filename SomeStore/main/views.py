@@ -1,7 +1,7 @@
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView
+from django.contrib.auth.hashers import make_password, check_password
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth.hashers import make_password
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.views import LoginView
 from rest_framework.response import Response
@@ -143,12 +143,12 @@ class LoginUserApi(APIView):
         if username and password:
             user = User.objects.filter(username=username).first()
             if user:
-                if make_password(password) == user.password:
+                if check_password(password, user.password):
                     user_agent = request.META.get("HTTP_USER_AGENT", "")
                     user_ser = UserSerializer(user)
                     send_login_message_to_mail(user.email, user_agent)
                     return Response({"status": True, "message": "successfully", "data": user_ser.data})
-                return Response({"status": False, "error": f"uncorrect password", "type": "password"})
+                return Response({"status": False, "error": "uncorrect password", "type": "password", "my": user.password, "your": make_password(password)})
             return Response({"status": False, "error": f"user {username} not found", "type": "username"})
 
         return Response({"status": False, "error": "uncorrect datas", "type": "all"})
