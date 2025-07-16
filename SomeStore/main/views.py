@@ -233,3 +233,16 @@ class PingPageApi(APIView):
 	def get(self, request):
 		return Response({"status": True, "message": "Waked!"})
 
+
+class CreateCategoryApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "message": "get not allowed"})
+	
+	def post(self, request):
+		data = request.data
+		title = data.get("title")
+		if title:
+			Categories.objects.create(title=title)
+			return Response({"status": True, "message": f"category {title} was created!"})
+		return Response({"status": False, "error": "uncorrect datas"})
+

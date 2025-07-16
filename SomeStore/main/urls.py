@@ -17,5 +17,6 @@ urlpatterns = [
     path('clear_datas/', views.ClearDatasApi.as_view()),
     path('create_user/', views.CreateUserApi.as_view()),
     path('ping/', views.PingPageApi.as_view()),
+    path('create_category/', views.CreateCategoryApi.as_view()),
     
 ]
