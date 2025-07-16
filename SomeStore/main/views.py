@@ -246,3 +246,17 @@ class CreateCategoryApi(APIView):
 			return Response({"status": True, "message": f"category {title} was created!"})
 		return Response({"status": False, "error": "uncorrect datas"})
 
+
+class DeleteProductApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "GET Not Allowed"})
+	
+	def post(self, request):
+		data = request.data
+		product_id = data.get("product_id")
+		product = Product.objects.filter(id=product_id)
+		if product:
+			Product.objects.get(id=product_id).delete()
+			return Response({"status": True, "message": "product successfully deleted"})
+		return Response({"status": False, "error": "product not found"})
+
