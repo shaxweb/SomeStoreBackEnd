@@ -99,13 +99,13 @@ class RegisterUserApi(APIView):
             token = send_token_to_email(email)
             if token["status"]:
                 user.username = username
-                user.password = password
+                user.password = make_password(password)
                 user.email = email
                 user.token = token["token"]
                 user.save()
                 return Response({"status": True, "message": f"token was sent to {email}"})
 
-            return Response({"status": False, "error": token["error"]})
+            return Response({"status": False, "error_email": token["error"]})
 
         return Response({"statis": False, "error": "uncorrect datas"})
 
@@ -143,7 +143,7 @@ class LoginUserApi(APIView):
         if username and password:
             user = User.objects.filter(username=username).first()
             if user:
-                if password == user.password:
+                if make_password(password) == user.password:
                     user_agent = request.META.get("HTTP_USER_AGENT", "")
                     user_ser = UserSerializer(user)
                     send_login_message_to_mail(user.email, user_agent)
@@ -216,13 +216,20 @@ class ClearDatasApi(APIView):
         Product.objects.all().delete()
         ProductImage.objects.all().delete()
         Basket.objects.all().delete()
+        Categories.objects.all().delete()
         return Response({"status": True, "message": "cleaned"})
 
 
 class CreateUserApi(APIView):
     def get(self, request):
-        User.objects.create(username="shaxrux", password="shaxcoder", email="shaxrux243@gmail.com")
+        User.objects.create(username="shaxrux", password=make_password("shaxcoder"), email="shaxrux243@gmail.com")
         Categories.objects.create(title="Cars")
         Categories.objects.create(title="Houses")
         Categories.objects.create(title="Other")
         return Response({"status": True, "message": "User Created"})
+
+
+class PingPageApi(APIView):
+	def get(self, request):
+		return Response({"status": True, "message": "Waked!"})
+
