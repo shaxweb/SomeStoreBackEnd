@@ -25,6 +25,11 @@ class StartAPi(APIView):
         return Response({"status": True, "message": "Hello, World", "data": data})
 
 
+class GetAppView(View):
+	def get(self, request):
+		return render(request, "download.html")
+
+
 class GetDataApi(APIView):
     def get(self, request):
         data = request.GET
@@ -222,7 +227,7 @@ class ClearDatasApi(APIView):
 
 class CreateUserApi(APIView):
     def get(self, request):
-        User.objects.create(username="shaxrux", password=make_password("shaxcoder"), email="shaxrux243@gmail.com")
+        User.objects.create(username="shaxcoder", password=make_password("shaxcoder"), email="shaxrux243@gmail.com")
         Categories.objects.create(title="Cars")
         Categories.objects.create(title="Houses")
         Categories.objects.create(title="Other")

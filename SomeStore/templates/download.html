@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Магазин приложений | Скачать приложение</title>
+    <style>
+        :root {
+          --bg-yellowgreen: #D7FC70;
+          --bg-yellowgreen2: #C3E366;
+          --bg-dark: #111111;
+          --bg-dark2: #232323;
+          --border: #636363;
+          --success-color: #28AE29;
+          --warning-color: #FEC629;
+          --error-color: #EE4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 100%;
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--bg-yellowgreen);
+        }
+
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--bg-yellowgreen);
+        }
+
+        .hero p {
+            font-size: 1rem;
+            max-width: 100%;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            padding: 0 0.5rem;
+        }
+
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 25px;
+            background-color: var(--bg-yellowgreen);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: var(--bg-dark);
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .download-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .download-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-align: center;
+        }
+
+        .download-btn {
+            display: inline-block;
+            width: 100%;
+            max-width: 300px;
+            padding: 1.2rem;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .android-btn {
+            background-color: var(--bg-yellowgreen);
+            color: var(--bg-dark);
+            border: none;
+        }
+
+        .ios-btn {
+            background-color: var(--bg-dark2);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .download-btn i {
+            margin-right: 0.8rem;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            background-color: white;
+            margin: 0 auto 1rem;
+            padding: 0.5rem;
+            border-radius: 10px;
+        }
+
+        .qr-section p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .features {
+            background-color: var(--bg-dark2);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: var(--bg-yellowgreen);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.2rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-dark);
+            padding: 1.2rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card h3 {
+            color: var(--bg-yellowgreen);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .instructions {
+            margin-bottom: 2rem;
+        }
+
+        .instructions h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--bg-yellowgreen);
+        }
+
+        .instructions ol {
+            padding-left: 1.5rem;
+        }
+
+        .instructions li {
+            margin-bottom: 0.8rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .footer-links a {
+            color: var(--bg-yellowgreen);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .copyright {
+            opacity: 0.7;
+            font-size: 0.8rem;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .download-btn {
+                width: 300px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">Магазин</div>
+        </header>
+
+        <section class="hero">
+            <div class="app-icon">
+                <i class="fas fa-shopping-bag"></i>
+            </div>
+            <h1>Магазин приложений</h1>
+            <p>Скачайте наше приложение для удобных покупок и эксклюзивных предложений</p>
+        </section>
+
+        <section class="download-section">
+            <h2 class="download-title">Скачать приложение</h2>
+            <a href="#" class="download-btn android-btn">
+                <i class="fab fa-android"></i>Для Android
+            </a>
+            <a href="#" class="download-btn ios-btn">
+                <i class="fab fa-apple"></i>Для iPhone
+            </a>
+        </section>
+
+        <section class="qr-section">
+            <div class="qr-code">
+                <!-- Здесь будет QR-код -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://example.com/download" alt="QR код для скачивания" width="180" height="180">
+            </div>
+            <p>Наведите камеру на QR-код для скачивания</p>
+        </section>
+
+        <section class="features">
+            <h2>Преимущества приложения</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3><i class="fas fa-bolt"></i> Быстрые покупки</h3>
+                    <p>Оформляйте заказы в пару кликов без лишних действий.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-percent"></i> Эксклюзивные скидки</h3>
+                    <p>Получайте специальные предложения только для пользователей приложения.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-bell"></i> Уведомления</h3>
+                    <p>Будьте в курсе статуса заказа и новых поступлений.</p>
+                </div>
+                <div class="feature-card">
+                    <h3><i class="fas fa-history"></i> История заказов</h3>
+                    <p>Все ваши покупки всегда под рукой в удобном формате.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="instructions">
+            <h2>Как установить?</h2>
+            <ol>
+                <li>Нажмите на кнопку для вашей платформы</li>
+                <li>Разрешите установку из неизвестных источников (для Android)</li>
+                <li>Дождитесь загрузки и откройте файл</li>
+                <li>Следуйте инструкциям установщика</li>
+                <li>Наслаждайтесь покупками!</li>
+            </ol>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="#">Помощь</a>
+                <a href="#">Контакты</a>
+                <a href="#">О нас</a>
+            </div>
+            <div class="copyright">
+                © 2023 Магазин приложений. Все права защищены.
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
