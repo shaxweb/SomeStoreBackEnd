@@ -15,6 +15,7 @@ class WaitUser(models.Model):
     password = models.CharField(max_length=32)
     email = models.EmailField()
     token = models.TextField()
+    registered_at = models.DateTimeField(auto_now_add=True)
 
 
 class Categories(models.Model):
@@ -33,6 +34,7 @@ class Product(models.Model):
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="product_images/")
+    registered_at = models.DateTimeField(auto_now_add=True)
 
 
 # class TgProductImage(models.Model):
@@ -43,4 +45,6 @@ class ProductImage(models.Model):
 class Basket(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    registered_at = models.DateTimeField(auto_now_add=True)
 

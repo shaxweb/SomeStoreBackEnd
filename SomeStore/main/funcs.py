@@ -31,7 +31,7 @@ def send_login_message_to_mail(receiver_email, user_agent):
     message = MIMEMultipart()
     message["From"] = sender_email
     message["To"] = receiver_email
-    message["Subject"] = "Регистрация!"
+    message["Subject"] = "Был вход на ваш устройство"
     body = f"был вход с устройства {user_agent}"
     message.attach(MIMEText(body, "plain"))
 
