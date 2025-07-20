@@ -170,7 +170,7 @@ class CheckUserApi(APIView):
 		if user_id and password:
 			user = User.objects.filter(id=user_id).first()
 			if user:
-				if check_password(password, user.password):
+				if check_password(user.password, password):
 					return Response({"status": True, "message": "password successfully checked"})
 				return Response({"status": False, "error": "uncorrect password"})
 			return Response({"status": False, "error": "user not found"})
