@@ -100,3 +100,19 @@ def get_tg_file_path(file_id):
 	res = requests.get(get_file_url)
 	file_path = res.json()["result"]["file_path"]
 	return file_path
+
+
+def search_products(query, products):
+    results = []
+
+    for row in products:
+        title = row[1].lower()
+        description = row[2].lower()
+        if query in title or query in description:
+            results.append(row)
+        else:
+            matches = difflib.get_close_matches(query, [title], cutoff=0.6)
+            if matches:
+                results.append(row)
+
+    return results

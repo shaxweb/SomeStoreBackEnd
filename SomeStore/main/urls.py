@@ -21,5 +21,6 @@ urlpatterns = [
     path('create_category/', views.CreateCategoryApi.as_view()),
     path('delete_product/', views.DeleteProductApi.as_view()),
     
+    path('search/', views.SearchProductsApi.as_view()),
     path('get_app/', views.GetAppView.as_view())
 ]

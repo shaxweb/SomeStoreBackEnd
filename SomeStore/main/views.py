@@ -283,3 +283,14 @@ class DeleteProductApi(APIView):
 			return Response({"status": True, "message": "product successfully deleted"})
 		return Response({"status": False, "error": "product not found"})
 
+
+class SearchProductsApi(APIView):
+	def get(self, request):
+		query = request.GET.get("q")
+		if query:
+			products = Product.objects.all()
+			products = ProductSerializer(products, many=True)
+			products = search_products("b", search_products)
+			return Response({"status": True, "message": "in data", "data": products})
+		return Response({"status": False, "error": "uncorrect get"})
+
