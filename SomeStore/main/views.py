@@ -159,6 +159,24 @@ class LoginUserApi(APIView):
         return Response({"status": False, "error": "uncorrect datas", "type": "all"})
 
 
+class CheckUserApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "Get Not Allowed"})
+	
+	def post(self, request):
+		data = request.data
+		username = data.get("username")
+		password = data.get("password")
+		if username and password:
+			user = User.objects.filter(username=username).first()
+			if user:
+				if check_password(user.password, password):
+					return Response({"status": True, "message": "password successfully checked"})
+				return Response({"status": False, "error": "uncorrect password"})
+			return Response({"status": False, "error": "user not found"})
+		return Response({"status": False, "error": "uncorrect datas"})
+
+
 class CreateProductApi(APIView):
     def get(self, request):
         return Response({"status": False, "message": "get not allowed"})
