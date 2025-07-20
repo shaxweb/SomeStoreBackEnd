@@ -290,7 +290,7 @@ class SearchProductsApi(APIView):
 		if query:
 			products = Product.objects.all()
 			products = ProductSerializer(products, many=True)
-			products = search_products("b", search_products)
+			products = search_products("b", products.data)
 			return Response({"status": True, "message": "in data", "data": products})
 		return Response({"status": False, "error": "uncorrect get"})
 
