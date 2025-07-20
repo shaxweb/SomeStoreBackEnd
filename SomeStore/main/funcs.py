@@ -106,8 +106,8 @@ def search_products(query, products):
     results = []
 
     for row in products:
-        title = row[1].lower()
-        description = row[2].lower()
+        title = row["title"].lower()
+        description = row["description"].lower()
         if query in title or query in description:
             results.append(row)
         else:
