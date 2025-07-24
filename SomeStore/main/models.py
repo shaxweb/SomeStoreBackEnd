@@ -43,8 +43,8 @@ class ProductImage(models.Model):
 
 
 class Basket(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
     registered_at = models.DateTimeField(auto_now_add=True)
 

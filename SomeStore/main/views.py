@@ -212,12 +212,12 @@ class CreateBasketApi(APIView):
 
     def post(self, request):
         data = json.loads(request.body)
-        author = data.get("author")
-        product = data.get("product")
-        user = User.objects.get(id=author)
-        product = Product.objects.get(id=product)
+        user_id = data.get("user_id")
+        product_id = data.get("product_id")
+        user = User.objects.filter(id=user_id).first()
+        product = Product.objects.filter(id=product_id).first()
 
-        if author and product:
+        if user and product:
             basket = Basket()
             basket.author = user
             basket.product = product
