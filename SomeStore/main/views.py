@@ -75,6 +75,23 @@ class GetProductsApi(APIView):
         return Response({"status": True, "message": "in data", "data": products.data})
 
 
+class GetUserBasketApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "get not allowed"})
+	
+	def post(self, request):
+		data = request.data
+		user_id = data.get("user_id")
+		if user_id:
+			user = User.objects.filter(id=user_id).first()
+			if user:
+				baskets = Basket.objects.filter(user=user)
+				baskets = BasketSerializer(baskets, many=True)
+				return Response({"status": True, "message": "in data", "data": baskets.data})
+			return Response({"status": False, "error": "user not found"})
+		return Response({"status": False, "error": "uncorrect datas"})
+
+
 class RegisterUserApi(APIView):
     def get(self, request):
         return Response({"status": False, "error": "get not allowed"})
@@ -214,16 +231,25 @@ class CreateBasketApi(APIView):
         data = json.loads(request.body)
         user_id = data.get("user_id")
         product_id = data.get("product_id")
-        user = User.objects.filter(id=user_id).first()
-        product = Product.objects.filter(id=product_id).first()
-
-        if user and product:
-            basket = Basket()
-            basket.author = user
-            basket.product = product
-            basket.save()
-            return Response({"status": True, "message": "basket created"})
-
+        
+        if user_id and product_id:
+        	user = User.objects.filter(id=user_id).first()
+        	product = Product.objects.filter(id=product_id).first()
+        	
+        	if user:
+        		if product:
+        			have_basket = Basket.objects.filter(user=user, product=product).first()
+        			if have_basket:
+        				have_basket.quantity = have_basket.quantity + 1
+        				have_basket.save()
+        				return Response({"status": True, "message": "basket added"})
+        			basket = Basket()
+        			basket.user = user
+        			basket.product = product
+        			basket.save()
+        			return Response({"status": True, "message": "basket created"})
+        		return Response({"status": False, "error": "product not found"})
+        	return Response({"status": False, "error": "user not found"})
         return Response({"statis": False, "error": "uncorrect datas"})
 
 
@@ -282,6 +308,32 @@ class DeleteProductApi(APIView):
 			Product.objects.get(id=product_id).delete()
 			return Response({"status": True, "message": "product successfully deleted"})
 		return Response({"status": False, "error": "product not found"})
+
+
+class DeleteBasketApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "get not allowed"})
+	
+	def post(self, request):
+		data = request.data
+		user_id = data.get("user_id")
+		product_id = data.get("product_id")
+		if user_id and product_id:
+			user = User.objects.filter(id=user_id).first()
+			if user:
+				product = Product.objects.filter(id=product_id).first()
+				if product:
+					basket = Basket.objects.filter(user=user, product=product).first()
+					if basket:
+						if basket.quantity == 1:
+							basket.delete()
+						else:
+							basket.quantity -= 1
+							basket.save()
+						return Response({"status": True, "message": "basket removed"})
+				return Response({"status": False, "error": "product not found"})
+			return Response({"status": False, "error": "user not found"})
+		return Response({"status": False, "error": "uncorrect datas"})
 
 
 class SearchProductsApi(APIView):

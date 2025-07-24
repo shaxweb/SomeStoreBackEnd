@@ -8,6 +8,7 @@ urlpatterns = [
     path('get_all_datas/', views.GetAllDatasApi.as_view()),
     path('get_data/', views.GetDataApi.as_view()),
     path('get_products/', views.GetProductsApi.as_view()),
+    path('get_user_baskets/', views.GetUserBasketApi.as_view()),
     path('register/', views.RegisterUserApi.as_view()),
     path('login/', views.LoginUserApi.as_view()),
     path('auth/', views.AuthUserApi.as_view()),
@@ -20,6 +21,7 @@ urlpatterns = [
     path('ping/', views.PingPageApi.as_view()),
     path('create_category/', views.CreateCategoryApi.as_view()),
     path('delete_product/', views.DeleteProductApi.as_view()),
+    path('delete_basket/', views.DeleteBasketApi.as_view()),
     
     path('search/', views.SearchProductsApi.as_view()),
     path('get_app/', views.GetAppView.as_view())
