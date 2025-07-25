@@ -363,7 +363,7 @@ class PlusApi(APIView):
 			return Response({"status": False, "error": "uncorrect datas"})
 		if a.isdigit():
 			if b.isdigit():
-				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)+int(b)})
+				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)+int(b)}})
 			return Response({"status": False, "error": "b is not integer"})
 		return Response({"status": False, "error": "a is not integer"})
 
@@ -380,7 +380,7 @@ class MinusApi(APIView):
 			return Response({"status": False, "error": "uncorrect datas"})
 		if a.isdigit():
 			if b.isdigit():
-				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)-int(b)})
+				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)-int(b)}})
 			return Response({"status": False, "error": "b is not integer"})
 		return Response({"status": False, "error": "a is not integer"})
 		
