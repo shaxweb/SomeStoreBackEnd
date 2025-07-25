@@ -343,8 +343,10 @@ class DeleteBasketFullApi(APIView):
 	def post(self, request):
 		dara = request.data
 		basket_id = data.get("basket_id")
-		if basket_id:
-			basket = Basket.objects.filter(basket_id=basket_id).first()
+		user_id = data.get("user_id")
+		if basket_id and user_id:
+			user = User.objects.filter(id=user_id).first()
+			basket = Basket.objects.filter(id=basket_id, user=user).first()
 			if basket:
 				basket.delete()
 				return Response({"status": True, "message": "basket successfully deleted"})
