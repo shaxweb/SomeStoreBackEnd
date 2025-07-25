@@ -346,3 +346,41 @@ class SearchProductsApi(APIView):
 			return Response({"status": True, "message": "in data", "data": products})
 		return Response({"status": False, "error": "uncorrect get"})
 
+
+
+# ABIW
+
+
+class PlusApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "get not allowed"})
+	
+	def post(self, request):
+		data = request.data
+		a = data.get("a")
+		b = data.get("b")
+		if not a or not b:
+			return Response({"status": False, "error": "uncorrect datas"})
+		if a.isdigit():
+			if b.isdigit():
+				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": a+b})
+			return Response({"status": False, "error": "b is not integer"})
+		return Response({"status": False, "error": "a is not integer"})
+
+
+class MinusApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "get not allowed"})
+	
+	def post(self, request):
+		data = request.data
+		a = data.get("a")
+		b = data.get("b")
+		if not a or not b:
+			return Response({"status": False, "error": "uncorrect datas"})
+		if a.isdigit():
+			if b.isdigit():
+				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": a-b})
+			return Response({"status": False, "error": "b is not integer"})
+		return Response({"status": False, "error": "a is not integer"})
+		

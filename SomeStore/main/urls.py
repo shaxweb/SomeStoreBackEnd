@@ -24,5 +24,9 @@ urlpatterns = [
     path('delete_basket/', views.DeleteBasketApi.as_view()),
     
     path('search/', views.SearchProductsApi.as_view()),
-    path('get_app/', views.GetAppView.as_view())
+    path('get_app/', views.GetAppView.as_view()),
+    
+    
+    path('plus/', views.PlusApi.as_view()),
+    path('minus/', views.MinusApi.as_view()),
 ]
