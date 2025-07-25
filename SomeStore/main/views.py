@@ -336,6 +336,22 @@ class DeleteBasketApi(APIView):
 		return Response({"status": False, "error": "uncorrect datas"})
 
 
+class DeleteBasketFullApi(APIView):
+	def get(self, request):
+		return Response({"status": False, "error": "get not allowed"})
+	
+	def post(self, request):
+		dara = request.data
+		basket_id = data.get("basket_id")
+		if basket_id:
+			basket = Basket.objects.filter(basket_id=basket_id).first()
+			if basket:
+				basket.delete()
+				return Response({"status": True, "message": "basket successfully deleted"})
+			return Response({"status": False, "error": "basket not found"})
+		return Response({"status": False, "error": "uncorrect datas"})
+
+
 class SearchProductsApi(APIView):
 	def get(self, request):
 		query = request.GET.get("q")
