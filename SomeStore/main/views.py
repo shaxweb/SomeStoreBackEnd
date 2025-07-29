@@ -216,7 +216,7 @@ class CreateProductApi(APIView):
                 for image in images:
                     ProductImage.objects.create(product=product, image=image)
                 
-                return Response({"status": True, "message": f"product {title} was created"})
+                return Response({"status": True, "message": f"product '{title}' was created"})
 
             return Response({"status": False, "error": "user or category not found"})
 
