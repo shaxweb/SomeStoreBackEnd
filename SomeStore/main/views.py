@@ -13,6 +13,7 @@ from django.urls import reverse
 from django.views import View
 import requests, secrets
 import json, time
+import asyncio
 
 from .serializers import *
 from .models import *
@@ -280,7 +281,8 @@ class CreateUserApi(APIView):
 
 class PingPageApi(APIView):
 	def get(self, request):
-		# requests.get("https://somestorebot.onrender.com")
+		requests.get("https://somestorebot.onrender.com/")
+		asyncio.sleep(10)
 		return Response({"status": True, "message": "Waked!"})
 
 
