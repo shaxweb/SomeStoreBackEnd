@@ -27,4 +27,5 @@ urlpatterns = [
     path('search/', views.SearchProductsApi.as_view()),
     path('get_app/', views.GetAppView.as_view()),
     
+    path('my_apps/', views.MyAppsApi.as_view()),
 ]
