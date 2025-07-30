@@ -380,6 +380,7 @@ class MyAppsApi(APIView):
 	def get(self, request):
 		apps = {
 		    "tasbih": {
+		        "update_id": 2,
 		        "version": "1.0.3",
 		        "url": "https://apps.volt.build/bcbf3a7c-8074-4fba-bf5e-1de7e2233d57/android.debug.apk"
 		    }
