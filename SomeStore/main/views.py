@@ -281,8 +281,6 @@ class CreateUserApi(APIView):
 
 class PingPageApi(APIView):
 	def get(self, request):
-		requests.get("https://somestorebot.onrender.com/")
-		asyncio.sleep(10)
 		return Response({"status": True, "message": "Waked!"})
 
 
