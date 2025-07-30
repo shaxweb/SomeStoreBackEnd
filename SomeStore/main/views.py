@@ -254,11 +254,6 @@ class CreateBasketApi(APIView):
         return Response({"statis": False, "error": "uncorrect datas"})
 
 
-class WatchClassApi(APIView):
-    def get(self, request):
-        return Response({"status": True, "message": "Thanks for check"})
-
-
 class ClearDatasApi(APIView):
     def get(self, request):
         User.objects.all().delete()
@@ -279,11 +274,6 @@ class CreateUserApi(APIView):
         return Response({"status": True, "message": "User Created"})
 
 
-class PingPageApi(APIView):
-	def get(self, request):
-		return Response({"status": True, "message": "Waked!"})
-
-
 class CreateCategoryApi(APIView):
 	def get(self, request):
 		return Response({"status": False, "message": "get not allowed"})
@@ -295,6 +285,18 @@ class CreateCategoryApi(APIView):
 			Categories.objects.create(title=title)
 			return Response({"status": True, "message": f"category {title} was created!"})
 		return Response({"status": False, "error": "uncorrect datas"})
+
+
+class CreateSalesmanApi(APIView):
+	def post(self, request):
+		user_id = request.data.get("user_id")
+		user = User.objects.filter(id=user_id)
+		if user.exists():
+			user = user.first()
+			user.is_salesman = True
+			user.save()
+			return Response({"status": True, "message": "been"})	
+		return Response({"status": False, "error": "user not found"})
 
 
 class DeleteProductApi(APIView):
@@ -366,40 +368,8 @@ class SearchProductsApi(APIView):
 		return Response({"status": False, "error": "uncorrect get"})
 
 
-
-# ABIW
-
-
-class PlusApi(APIView):
+class PingPageApi(APIView):
 	def get(self, request):
-		return Response({"status": False, "error": "get not allowed"})
-	
-	def post(self, request):
-		data = request.data
-		a = data.get("a")
-		b = data.get("b")
-		if not a or not b:
-			return Response({"status": False, "error": "uncorrect datas"})
-		if a.isdigit():
-			if b.isdigit():
-				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)+int(b)}})
-			return Response({"status": False, "error": "b is not integer"})
-		return Response({"status": False, "error": "a is not integer"})
+		return Response({"status": True, "message": "Waked!"})
 
-
-class MinusApi(APIView):
-	def get(self, request):
-		return Response({"status": False, "error": "get not allowed"})
-	
-	def post(self, request):
-		data = request.data
-		a = data.get("a")
-		b = data.get("b")
-		if not a or not b:
-			return Response({"status": False, "error": "uncorrect datas"})
-		if a.isdigit():
-			if b.isdigit():
-				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)-int(b)}})
-			return Response({"status": False, "error": "b is not integer"})
-		return Response({"status": False, "error": "a is not integer"})
 

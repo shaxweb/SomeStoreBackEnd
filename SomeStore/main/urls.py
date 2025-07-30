@@ -15,9 +15,9 @@ urlpatterns = [
     path('check_user/', views.CheckUserApi.as_view()),
     path('create_product/', views.CreateProductApi.as_view()),
     path('create_basket/', views.CreateBasketApi.as_view()),
-    path('watch_class/', views.WatchClassApi.as_view()),
     path('clear_datas/', views.ClearDatasApi.as_view()),
     path('create_user/', views.CreateUserApi.as_view()),
+    path('create_salesman/', views.CreateSalesmanApi.as_view()),
     path('ping/', views.PingPageApi.as_view()),
     path('create_category/', views.CreateCategoryApi.as_view()),
     path('delete_product/', views.DeleteProductApi.as_view()),
@@ -27,7 +27,4 @@ urlpatterns = [
     path('search/', views.SearchProductsApi.as_view()),
     path('get_app/', views.GetAppView.as_view()),
     
-    
-    path('plus/', views.PlusApi.as_view()),
-    path('minus/', views.MinusApi.as_view()),
 ]
