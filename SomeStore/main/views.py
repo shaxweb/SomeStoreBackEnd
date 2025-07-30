@@ -280,7 +280,7 @@ class CreateUserApi(APIView):
 
 class PingPageApi(APIView):
 	def get(self, request):
-		requests.get("https://somestorebot.onrender.com")
+		# requests.get("https://somestorebot.onrender.com")
 		return Response({"status": True, "message": "Waked!"})
 
 
