@@ -280,6 +280,7 @@ class CreateUserApi(APIView):
 
 class PingPageApi(APIView):
 	def get(self, request):
+		requests.get("https://somestorebot.onrender.com")
 		return Response({"status": True, "message": "Waked!"})
 
 
@@ -401,4 +402,4 @@ class MinusApi(APIView):
 				return Response({"status": True, "message": "in data", "data": {"a": a, "b": b, "answer": int(a)-int(b)}})
 			return Response({"status": False, "error": "b is not integer"})
 		return Response({"status": False, "error": "a is not integer"})
-		
+
