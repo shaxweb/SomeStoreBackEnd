@@ -382,7 +382,7 @@ class MyAppsApi(APIView):
 		    "tasbih": {
 		        "update_id": 5,
 		        "version": "1.0.5",
-		        "url": "https://t.me/ShaxcoderApps/9"
+		        "url": "https://t.me/ShaxcoderApps/11"
 		    }
 		}
 		return Response({"status": True, "message": apps})
