@@ -380,9 +380,9 @@ class MyAppsApi(APIView):
 	def get(self, request):
 		apps = {
 		    "tasbih": {
-		        "update_id": 3,
-		        "version": "1.0.3",
-		        "url": "https://apps.volt.build/bcbf3a7c-8074-4fba-bf5e-1de7e2233d57/android.debug.apk"
+		        "update_id": 5,
+		        "version": "1.0.5",
+		        "url": "https://t.me/ShaxcoderApps/9"
 		    }
 		}
 		return Response({"status": True, "message": apps})
